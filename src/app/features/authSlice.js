@@ -60,7 +60,6 @@ export const getProfileData = createAsyncThunk('auth/get_profile_data', async({t
 
 const authInitialState = {
     loading: false,
-    error: '',
     isLoggedIn: localStorage.getItem('token') ? true : false,
     token: localStorage.getItem('token') ? localStorage.getItem('token') : '',
     email: localStorage.getItem('email') ? localStorage.getItem('email') : '',
@@ -93,7 +92,6 @@ const authSlice = createSlice({
             })
             .addCase(signup.rejected, (state, action) => {
                 state.loading = false
-                state.error = action.payload.message;
                 // console.log(action)
             })
             
@@ -111,7 +109,6 @@ const authSlice = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false
-                state.error = action.payload.message;
                 // console.log(action)
             })
 

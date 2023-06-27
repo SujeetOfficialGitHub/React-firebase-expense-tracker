@@ -12,10 +12,11 @@ const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('');
 
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const {error, loading} = useSelector(state => state.auth);
+    const {loading} = useSelector(state => state.auth);
     
     const enteredPasswordHandler = (e) => {
         setPassword(e.target.value)
@@ -32,8 +33,14 @@ const Login = () => {
             setPassword('')
             navigate('/')
         }catch(error){
+            setError(error.message)
             // console.log(error)
         }
+    }
+    if (error){
+        setTimeout(() => {
+            setError('')
+        }, 10000)
     }
   return (
     <Helmet className={classes.login} title={title}>

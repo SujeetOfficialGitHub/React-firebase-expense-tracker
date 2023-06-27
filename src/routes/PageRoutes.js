@@ -11,7 +11,7 @@ const PageRoutes = () => {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   return (
     <Routes>
-      <Route path='/' element={<Home/>} />
+      <Route path='/' element={isLoggedIn ? <Home/> : <Login />} />
       <Route path='/login' element={!isLoggedIn ? <Login/> : <Navigate to="/" />} />
       <Route path='/signup' element={!isLoggedIn ? <SignUp/> : <Navigate to="/" />}  />
       <Route path='/password-reset' element={!isLoggedIn ? <PasswordReset/> : <Navigate to="/" />}  />

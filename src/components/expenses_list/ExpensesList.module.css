@@ -1,0 +1,10 @@
+.expense-list{
+    background: rgb(195, 178, 178);
+    margin: 1rem auto;
+    max-width: 1200px;
+}
+@media (max-width:1200px){
+    .expense-list{
+        margin: 1rem 3%;
+    }
+}

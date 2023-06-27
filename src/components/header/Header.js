@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Container, Navbar, Nav, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom'
-import { logout } from '../../../app/features/authSlice';
+import { logout } from '../../app/features/authSlice';
 
 const Header = () => {
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);

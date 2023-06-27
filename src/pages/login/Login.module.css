@@ -1,0 +1,15 @@
+.login{
+    border: 1px solid black;
+    border-radius: .5rem;
+    padding: 1.5rem 1rem;
+    margin: 4rem auto;
+    max-width: 30rem;
+}
+.login button{
+    width: 100%;
+}
+@media (max-width: 350px){
+    .login{
+        margin: 4rem 5% !important;
+    }
+}

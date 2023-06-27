@@ -1,0 +1,60 @@
+import React, {useState} from 'react'
+import { Form, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+import classes from './SignUp.module.css'
+import Helmet from '../../components/utils/Helmet'
+import { signup } from '../../app/features/authSlice'
+
+const SignUp = () => {
+    const title = "Sign up"
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const dispatch = useDispatch();
+    
+    const enteredPasswordHandler = (e) => {
+        setPassword(e.target.value)
+    }
+    const signupHander = async(e) => {
+        e.preventDefault()
+        const enteredData = {
+            email,
+            password
+        }
+        try{
+            await dispatch(signup({enteredData})).unwrap()
+        }catch(error){
+            console.log(error)
+        }
+        
+    }
+  return (
+    <Helmet className={classes.signup} title={title}>
+        <h2 className='text-center'>Sign Up</h2>
+        <hr />
+        <Form onSubmit={signupHander}>
+            <Form.Group className="mb-3" controlId="email.ControlInput1">
+                <Form.Label className='fs-3'>Email</Form.Label>
+                <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)}className='fs-3' placeholder="Enter your email" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="password.ControlInput1">
+                <Form.Label className='fs-3'>Password</Form.Label>
+                <Form.Control type="password" value={password} onChange={enteredPasswordHandler} className='fs-3' placeholder="Enter your password" />
+            </Form.Group>
+
+            <Link to="/forgot-password" className='fs-4'>Forgot Password</Link>
+
+            <Button type="submit" className='fs-4'>Sign Up</Button>
+        </Form>
+        <hr />
+        <p className='fs-4 mt-4 border p-3 text-center'>
+            Already have an account 
+            <Link to="/login"> Login here</Link>
+        </p>
+    </Helmet>
+  )
+}
+
+export default SignUp

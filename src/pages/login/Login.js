@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import classes from './Login.module.css'
 import Helmet from '../../components/utils/Helmet'
@@ -14,6 +14,8 @@ const Login = () => {
     const [password, setPassword] = useState('')
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const {error, loading} = useSelector(state => state.auth);
     
     const enteredPasswordHandler = (e) => {
         setPassword(e.target.value)
@@ -26,14 +28,18 @@ const Login = () => {
         }
         try{
             await dispatch(login({enteredData})).unwrap()
+            setEmail('')
+            setPassword('')
+            navigate('/')
         }catch(error){
-            console.log(error)
+            // console.log(error)
         }
     }
   return (
     <Helmet className={classes.login} title={title}>
         <h2 className='text-center'>Login</h2>
         <hr />
+        {error && <p className='fs-4 p-1 text-center text-light bg-danger'>{error}</p>}
         <Form onSubmit={loginHander}>
             <Form.Group className="mb-3" controlId="email.ControlInput1">
                 <Form.Label className='fs-3'>Email</Form.Label>
@@ -44,7 +50,9 @@ const Login = () => {
                 <Form.Control type="password" value={password} onChange={enteredPasswordHandler} className='fs-3' placeholder="Enter your password" />
             </Form.Group>
 
-            <Button className='fs-4' type="submit">Login</Button>
+            <Link to="/password-reset" className='fs-4'>Forgot Password</Link>
+
+            <Button className='fs-4' type="submit" disabled={loading}>Login</Button>
         </Form>
 
         <p className='fs-4 mt-4 border p-3 text-center'>

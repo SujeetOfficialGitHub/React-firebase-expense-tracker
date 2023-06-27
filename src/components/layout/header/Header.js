@@ -50,9 +50,18 @@ const Header = () => {
             </Nav>
             <Nav>
                 {isLoggedIn ? (
+                    <>
+                    <NavLink
+                        to="/profile"
+                        className="nav-link fs-4"
+                        onClick={handleNavLinkClick}
+                    >
+                        Profile
+                    </NavLink>
                     <Button className="fs-4" onClick={logoutHandler}>
                         Logout
                     </Button>
+                    </>
 
                 ) : (
                     <>

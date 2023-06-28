@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Spinner } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import classes from './Expense.module.css'
 import ExpenseDate from '../expense_date/ExpenseDate'
 import {FaTrash} from 'react-icons/fa'
@@ -9,7 +9,7 @@ import { deleteExpense } from '../../app/features/expenseSlice'
 const Expense = ({id, name, category,amount, date, onPopulateToForm}) => {
   const dispatch = useDispatch();
   const email = useSelector(state => state.auth.email);
-  const {loading} = useSelector(state => state.expense);
+
   const deleteHander = async() => {
     try {
       await dispatch(deleteExpense({email, id}))
@@ -17,6 +17,7 @@ const Expense = ({id, name, category,amount, date, onPopulateToForm}) => {
       console.log(error)
     }
   }
+
   return (
     <div className={classes.expense}>
         <ExpenseDate date={date} />

@@ -1,0 +1,17 @@
+.filter-form{
+    display: flex;
+    background: purple;
+}
+.input-box{
+    margin: 1rem;
+}
+.filter-form select{
+    width: 10rem;
+
+}
+@media (max-width: 400px){
+    .filter-form select{
+        width: 6rem;
+    
+    }
+}

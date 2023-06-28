@@ -35,7 +35,7 @@ export const updateExpense = createAsyncThunk('expense/updateExpense', async({en
 // Delete Expenses 
 export const deleteExpense = createAsyncThunk('expense/deleteExpense', async({email, id}, {rejectWithValue}) => {
     try{
-        const res = await axios.delete(`https://${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebaseio.com/${removeSpecialChar(email)}/${id}.json`);
+        await axios.delete(`https://${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebaseio.com/${removeSpecialChar(email)}/${id}.json`);
         return id
     }catch(error){
         return rejectWithValue(error.response.data.error)

@@ -8,7 +8,7 @@ import { fetchExpense } from '../../app/features/expenseSlice'
 
 
 
-const ExpensesList = () => {
+const ExpensesList = (props) => {
   const dispatch = useDispatch();
   const email = useSelector(state => state.auth.email);
 
@@ -37,6 +37,7 @@ const ExpensesList = () => {
           category = {expense.category}
           amount = {expense.amount}
           date = {expense.date}
+          onPopulateToForm = {props.onPopulateToForm}
         />
       ))
       )}

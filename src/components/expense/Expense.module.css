@@ -23,13 +23,7 @@
     display: flex;
     align-items: center;
 }
-.action span{
-    font-size: 1.5rem;
-    margin-right: 1rem;
-    cursor: pointer;
-    padding: .5rem;
-    border-radius: .5rem;
-}
+
 
 
 @media (max-width: 768px){
@@ -45,8 +39,5 @@
     }
     .action{
         flex-direction: column;
-    }
-    .action span{
-        margin-top: .5rem;
     }
 }

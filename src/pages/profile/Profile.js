@@ -34,14 +34,14 @@ const Profile = () => {
             await dispatch(updateProfile({enteredData})).unwrap()
             const res = await dispatch(getProfileData({token})).unwrap();
             if (res.users){
-                console.log(res.users[0])
+                // console.log(res.users[0])
                 setName(res.users[0].displayName)
-                setShowImage(res.users[0].photoUrls)
+                setShowImage(res.users[0].photoUrl)
             }
             setImageUrl('')
             setReadMode(true)
         }catch(error){
-            console.log(error)
+            // console.log(error)
         }
     }
 
@@ -56,7 +56,7 @@ const Profile = () => {
 
                 }
             } catch (error) {
-                console.log(error)
+                // console.log(error)
             }
         }
         fetchData()

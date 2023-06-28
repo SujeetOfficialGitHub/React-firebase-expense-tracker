@@ -1,7 +1,7 @@
 .add-expenses{
     margin: 2rem auto;
     max-width: 1200px;
-    background: rgb(178, 51, 178);
+    background: var(--bg-color);
     padding: 2rem;
     border-radius: 1rem;
 }

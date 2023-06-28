@@ -10,7 +10,7 @@ export const fetchExpense = createAsyncThunk('expense/fetchExpense', async({emai
         const res = await axios.get(`https://${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebaseio.com/${removeSpecialChar(email)}.json`);
         return res.data
     }catch(error){
-        console.log(error)
+        // console.log(error)
         return rejectWithValue(error.response.data.error)
     }
 })

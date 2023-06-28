@@ -24,7 +24,7 @@ const Expense = ({id, name, category,amount, date, onPopulateToForm}) => {
         <div className={classes['expense-content']}>
             <div className={classes.name}>{name}</div>
             <div className={classes.category}>{category}</div>
-            <div className={classes.amount}>{amount}</div>
+            <div className={classes.amount}><span>&#8377;</span>{amount}</div>
         </div>
         <div className={classes.action}>
             <Button onClick={deleteHander} className='bg-danger text-light fs-3'><FaTrash/></Button>

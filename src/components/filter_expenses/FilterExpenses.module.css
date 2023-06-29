@@ -1,6 +1,7 @@
 .filter-form{
     display: flex;
     background: var(--bg-color);
+    margin-top: 1rem;
 }
 .input-box{
     margin: 1rem;

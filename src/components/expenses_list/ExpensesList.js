@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner, Button } from 'react-bootstrap';
+import { CSVLink } from 'react-csv';
+
 
 import classes from './ExpensesList.module.css';
 import Expense from '../expense/Expense';
@@ -19,33 +21,34 @@ const ExpensesList = (props) => {
     const {expenses, loading} = useSelector(state => state.expense);
     const [filteredData, setFilteredData] = useState(expenses);
 
+    // Fetch All Expenses 
     useEffect(() => {
         const fetchExpenses = async () => {
-        try {
-            await dispatch(fetchExpense({ email })).unwrap();
-        } catch (error) {
-            // console.log(error);
-        }
+            try {
+                await dispatch(fetchExpense({ email })).unwrap();
+            }catch (error) {
+                // console.log(error);
+            }
         };
-
         fetchExpenses();
     }, [dispatch, email]);
 
+    // Filter Data 
     useEffect(() => {
         let filteredExpenses = expenses;
 
         if (selectedYear && selectedYear !== 'all') {
-        filteredExpenses = filteredExpenses.filter(expense => {
-            const itemYear = new Date(expense.date).getFullYear();
-            return itemYear.toString() === selectedYear;
-        });
+            filteredExpenses = filteredExpenses.filter(expense => {
+                const itemYear = new Date(expense.date).getFullYear();
+                return itemYear.toString() === selectedYear;
+            });
         }
 
         if (selectedMonth && selectedMonth !== 'all') {
-        filteredExpenses = filteredExpenses.filter(expense => {
-            const itemMonth = (new Date(expense.date).getMonth() + 1).toString().padStart(2, '0');
-            return itemMonth === selectedMonth;
-        });
+            filteredExpenses = filteredExpenses.filter(expense => {
+                const itemMonth = (new Date(expense.date).getMonth() + 1).toString().padStart(2, '0');
+                return itemMonth === selectedMonth;
+            });
         }
 
         setFilteredData(filteredExpenses);
@@ -61,28 +64,40 @@ const ExpensesList = (props) => {
     const totalExpensesAmount = expenses.reduce((initialVal, currVal) => initialVal + parseInt(currVal.amount), 0 )
     return (
         <div className={classes['expense-list']}>
-            <FilterExpenses onYearChange={handleYearChange} onMonthChange={handleMonthChange} />
-            
+            {/* Show activate premium button when Total expenses reached to 5000 */}
             {totalExpensesAmount > 5000 && !activatepremium &&
-                <Button onClick={() => setActivatePremium(true)} className='d-block mt-2 fs-3 p-3 mx-auto'>Activate Premium</Button>
+                <Button 
+                    onClick={() => setActivatePremium(true)} 
+                    className='d-block mt-2 fs-3 p-3 mx-auto'
+                >
+                    Activate Premium
+                </Button>
             }
-            {activatepremium && totalExpensesAmount > 5000 &&
+            {activatepremium && totalExpensesAmount > 5000 && expenses.length > 0 && (
                 <div className={classes['premium-section']}>
                     <p className='fs-3 text-center'>
                         Total Expenses <br />
                         <span>&#8377;</span>{totalExpensesAmount}
                     </p>
                     {totalExpensesAmount > 1000 && 
-                    <>
-                    {availableColors.map((color, i) => (
-                        <Premium key={i} color={color} />
-                    ))}
+                    <> 
+                        {availableColors.map((color, i) => (
+                            <Premium key={i} color={color} />
+                        ))}
                     </>
                     }
-                    <Button className={classes['expense-down-btn']}>Download Expenses</Button>
-                </div>
+                    <Button className={classes['expense-down-btn']}>
+                        <CSVLink
+                            data={expenses}
+                            filename="expenses.csv"
+                            className='text-light'
+                            >
+                            Download Expenses
+                        </CSVLink>
+                    </Button>
+                </div>)
             }
-
+            <FilterExpenses onYearChange={handleYearChange} onMonthChange={handleMonthChange} />
             {loading ? (<Spinner animation="border" className="d-block mx-auto m-3" variant="primary" />
                 ):(
                 !expenses || filteredData.length === 0) ? (

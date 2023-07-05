@@ -36,6 +36,7 @@ const Home = () => {
               setCategory('')
               setAmount('')
               setDate('')
+              setId('')
         }else{
           const res = await dispatch(addExpense({enteredData, email})).unwrap();
           if (res.id){
